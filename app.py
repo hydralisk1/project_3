@@ -3,7 +3,7 @@ import pandas_datareader as web
 import pandas as pd
 from datetime import date, timedelta
 from whatwehave import what_we_have
-from predicting import cnn_prediction
+from read_data import read_predcited_data
 
 app = Flask(__name__)
 companies = what_we_have()
@@ -31,7 +31,7 @@ def chart():
               "close": float(df.loc[i, "Close"]),
               "volume": float(df.loc[i, "Volume"]),
               "adj_close": float(df.loc[i, "Adj Close"])} for i in df.index]
-    pred_prices = [str(f) for f in cnn_prediction(code)]
+    pred_prices = [str(f) for f in read_predcited_data(code)]
     
     return render_template("chart.html", value=value, companies=companies, code=code, pred_prices=pred_prices)
 
